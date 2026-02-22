@@ -11,7 +11,7 @@
   - `thread_id` ごとのセッションをメモリ保持しつつ、SQLiteにスナップショット/履歴を保存
 - `bot`
   - runner のHTTP APIを呼び出す最小クライアント
-  - CLIから chat / permissions を送信可能
+  - CLIから chat / permissions を送信可能（旧CLI形式にも互換対応）
 - `db`
   - `users/channels/threads/session_events` スキーマ
   - 初期化スクリプト
@@ -26,7 +26,11 @@ RUNNER_DB_PATH=data/db.sqlite3 PYTHONPATH=runner/src python -m runner.http_api
 ## Bot CLI examples
 
 ```bash
+# current style
 PYTHONPATH=bot/src python -m bot.cli chat --thread-id t1 --user-id u1 --text "hello"
 PYTHONPATH=bot/src python -m bot.cli permissions --thread-id t1 --user-id u1 --write-ok true
 PYTHONPATH=bot/src python -m bot.cli chat --thread-id t1 --user-id u1 --text "[WRITE] update"
+
+# legacy style (main branch compatibility)
+PYTHONPATH=bot/src python -m bot.cli --thread-id t1 --user-id u1 --text "hello"
 ```
